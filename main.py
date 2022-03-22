@@ -11,6 +11,7 @@ from flask_gravatar import Gravatar
 import secrets
 from functools import wraps
 from typing import Callable
+import os
 
 LIST_OF_EDITORS = [1, 2]
 
@@ -25,7 +26,7 @@ class MySQLAlchemy(SQLAlchemy):
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = secrets.token_urlsafe(32)  # '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY_BLOG_01')  # secrets.token_urlsafe(32)
 print(app.secret_key)
 ckeditor = CKEditor(app)
 Bootstrap(app)
