@@ -10,8 +10,18 @@ from forms import CreatePostForm, RegisterUserForm, LoginUserForm, CommentForm
 from flask_gravatar import Gravatar
 import secrets
 from functools import wraps
+from typing import Callable
 
 LIST_OF_EDITORS = [1, 2]
+
+
+class MySQLAlchemy(SQLAlchemy):
+    Column: Callable
+    Integer: Callable
+    String: Callable
+    Text: Callable
+    ForeignKey: Callable
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -25,7 +35,7 @@ login_manager.init_app(app)
 # # CONNECT TO DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog_new_02.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db = MySQLAlchemy(app)
 
 # # INITIALIZE GRAVATAR
 gravatar = Gravatar(
